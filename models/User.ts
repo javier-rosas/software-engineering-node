@@ -3,11 +3,12 @@ import MaritalStatus from "./MaritalStatus";
 import Location from "./Location";
 
 export default class User {
-   private username: string = '';
-   private password: string = '';
+   private id: string;
+   private username: string;
+   private password: string;
    private firstName: string | null = null;
    private lastName: string | null = null;
-   private email: string = '';
+   private email: string;
    private profilePhoto: string | null = null;
    private headerImage: string | null = null;
    private accountType: AccountType = AccountType.Personal;
@@ -16,4 +17,14 @@ export default class User {
    private dateOfBirth: Date | null = null;
    private joined: Date = new Date();
    private location: Location | null = null;
+
+   constructor(id: string, username: string, password: string, email: string) {
+      this.id = id; 
+      this.username = username; 
+      this.password = password;
+      this.email = email
+  }
+  
+  public get uName() { return this.username; }
+  public get pass() { return this.password; }
 }
