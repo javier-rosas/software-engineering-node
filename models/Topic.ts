@@ -1,17 +1,18 @@
 export default class Topic {
 
-  private topic: string;
+  private _topic: string;
 
   constructor(topic: string) {
-    this.topic = topic
+    this._topic = topic
   }
 
-  public set setTopic(topic: string) {
-    this.topic = topic
+  public get topic(): string {
+    return this._topic;
+  }
+  public set topic(value: string) {
+    this._topic = value;
   }
 
-  public get getTopic(): string {
-    return this.topic
-  }
+
   
 }
