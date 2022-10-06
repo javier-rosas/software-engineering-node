@@ -1,16 +1,13 @@
 export default class Tag {
-
-  private tag: string
   
-  constructor(tag: string) {
-    this.tag = tag 
-  }
+  constructor(private _tag: string) {}
 
-  public set setTag(tag: string) {
-    this.tag = tag
+  public get tag(): string {
+    return this._tag;
   }
-
-  public get getTag() : string {
-    return this.tag
+  
+  public set tag(value: string) {
+    this._tag = value;
   }
+  
 }

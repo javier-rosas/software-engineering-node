@@ -1,25 +1,44 @@
 import User from "./User";
 
 export default class Tuit {
-   private id: string;
-   private tuit: string;
-   private postedOn: Date;
-   private postedBy: User | null;
-
-   constructor(id: string, tuit: string, postedOn: Date) {
-        this.id = id;
-        this.tuit = tuit;
-        this.postedOn = postedOn;
-        this.postedBy = null;
-   }
    
-   public set author(user: User | null) { 
-      this.postedBy = user; 
+   constructor(
+      private _id: string,
+      private _tuit: string,
+      private _postedOn: Date,
+      private _postedBy: User | null = null
+   ) {}
+
+   public get id(): string {
+      return this._id;
    }
-   public get author(): User | null { 
-      return this.postedBy; 
+
+   public set id(value: string) {
+      this._id = value;
    }
-   public get post(): string { 
-      return this.tuit; 
+
+   public get tuit(): string {
+      return this._tuit;
    }
+
+   public set tuit(value: string) {
+      this._tuit = value;
+   }
+
+   public get postedOn(): Date {
+      return this._postedOn;
+   }
+
+   public set postedOn(value: Date) {
+      this._postedOn = value;
+   }
+
+   public get postedBy(): User | null {
+      return this._postedBy;
+   }
+
+   public set postedBy(value: User | null) {
+      this._postedBy = value;
+   }
+
 }

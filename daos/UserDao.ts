@@ -60,7 +60,4 @@ export default class UserDao implements UserDaoI {
     return await userModel.deleteOne({_id: uid}); 
   }
 
-  
-
-
 }

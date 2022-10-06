@@ -1,27 +1,26 @@
 export default class Location {
+  
+  constructor(
+    private _latitude: number,
+    private _longitude: number
+  ) {}
 
-  private latitude: number;
-  private longitude: number;
-
-  constructor(latitude: number, longitude: number){
-    this.latitude = latitude
-    this.longitude = longitude
+  public get latitude(): number {
+    return this._latitude;
   }
 
-  public set setLatitude(latitude: number){
-    this.latitude = latitude
+  public set latitude(value: number) {
+    this._latitude = value;
   }
 
-  public set setLongitude(longitude: number){
-    this.longitude = longitude
+  public get longitude(): number {
+    return this._longitude;
+  }
+  
+  public set longitude(value: number) {
+    this._longitude = value;
   }
 
-  public get getLongitude() : number {
-    return this.longitude
-  }
 
-  public get getLatitude(): number {
-    return this.latitude
-  }
 
 };

@@ -36,6 +36,7 @@ export default class TuitDao implements TuitDaoI {
     })
     return tuitModels;
   }
+  
 
   public async findTuitsByUser(authorId: string): Promise<Tuit[]> {
     const tuitMongooseModels = await tuitModel.find({postedBy: authorId});
@@ -48,6 +49,7 @@ export default class TuitDao implements TuitDaoI {
     return tuitModels;
   }
 
+
   public async createTuit(tuit: Tuit): Promise<Tuit> {
     const tuitMongooseModel = await tuitModel.create(tuit);
     return new Tuit(
@@ -57,14 +59,16 @@ export default class TuitDao implements TuitDaoI {
     )
   }
 
+
   public async deleteTuit(tuitId: string): Promise<any> {
     return await tuitModel.deleteOne({_id: tuitId});
   }
 
+
   public async updateTuit(tuitId: string, tuit: Tuit): Promise<any> {
     return tuitModel.updateOne(
       {_id: tuitId},
-      {$set: {tuit: tuit.post}})
+      {$set: {tuit: tuit.tuit}})
   }
 
 } 

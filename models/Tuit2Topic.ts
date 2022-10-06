@@ -2,28 +2,30 @@ import Tuit from './Tuit'
 
 export default class Tuit2Topic {
   
-  private topic: string
-  private tuit: Tuit | null
+  constructor(
+    private _topic: string,
+    private _tuit: Tuit | null
+  ) {}
 
-  constructor(topic: string, tuit: Tuit | null) {
-    this.topic = topic
-    this.tuit = tuit
+
+  public get topic(): string {
+    return this._topic;
   }
 
-  public set setTopic(topic: string) {
-    this.topic = topic
+  public set topic(value: string) {
+    this._topic = value;
   }
+    
+	public get tuit(): Tuit | null {
+		return this._tuit;
+	}
 
-  public set setTuit(tuit: Tuit | null) {
-    this.tuit = tuit
-  }
+	public set tuit(value: Tuit | null) {
+		this._tuit = value;
+	}
 
-  public get getTopic(): string { 
-    return this.topic
-  }
-
-  public get getTuit() : Tuit | null {
-    return this.tuit
-  }
+  
+  
+ 
   
 }
