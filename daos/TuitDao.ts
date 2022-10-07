@@ -15,7 +15,7 @@ export default class TuitDao implements TuitDaoI {
   
   private constructor() {}
 
-  public async findTuitById(id: string): Promise<Tuit> {
+  async findTuitById(id: string): Promise<Tuit> {
     const tuitMongooseModel = await tuitModel.findById(id).populate('postedBy').exec();
     const tuit = new Tuit(
       tuitMongooseModel?._id.toString() ?? '',
@@ -25,7 +25,8 @@ export default class TuitDao implements TuitDaoI {
     return tuit;
   }
 
-  public async findAllTuits(): Promise<Tuit[]> {
+  
+  async findAllTuits(): Promise<Tuit[]> {
     const tuitMongooseModels = await tuitModel.find();
     const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
       return new Tuit(
@@ -38,7 +39,7 @@ export default class TuitDao implements TuitDaoI {
   }
   
 
-  public async findTuitsByUser(authorId: string): Promise<Tuit[]> {
+  async findTuitsByUser(authorId: string): Promise<Tuit[]> {
     const tuitMongooseModels = await tuitModel.find({postedBy: authorId});
     const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
       return new Tuit(
@@ -50,7 +51,7 @@ export default class TuitDao implements TuitDaoI {
   }
 
 
-  public async createTuit(tuit: Tuit): Promise<Tuit> {
+  async createTuit(tuit: Tuit): Promise<Tuit> {
     const tuitMongooseModel = await tuitModel.create(tuit);
     return new Tuit(
       tuitMongooseModel?._id.toString() ?? '',
@@ -60,12 +61,12 @@ export default class TuitDao implements TuitDaoI {
   }
 
 
-  public async deleteTuit(tuitId: string): Promise<any> {
+  async deleteTuit(tuitId: string): Promise<any> {
     return await tuitModel.deleteOne({_id: tuitId});
   }
 
 
-  public async updateTuit(tuitId: string, tuit: Tuit): Promise<any> {
+  async updateTuit(tuitId: string, tuit: Tuit): Promise<any> {
     return tuitModel.updateOne(
       {_id: tuitId},
       {$set: {tuit: tuit.tuit}})

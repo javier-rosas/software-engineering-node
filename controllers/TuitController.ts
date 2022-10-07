@@ -34,13 +34,14 @@ export default class TuitController implements TuitControllerI {
       .findAllTuits()
       .then((tuits: Tuit[]) => res.json(tuits));
   } 
+  
 
   findTuitById = (req: Request, res: Response)  => {
     TuitController.tuitDao
       .findTuitById(req.params.tid)
       .then((tuit: Tuit) => res.json(tuit));
   }
-    
+
       
   findTuitsByUser = (req: Request, res: Response) => {
     TuitController.tuitDao
