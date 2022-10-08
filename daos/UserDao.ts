@@ -18,10 +18,11 @@ export default class UserDao implements UserDaoI {
   async findAllUsers() : Promise<User[]> {
     const userMongooseModel = await userModel.find()
     const users = userMongooseModel.map( (user) => {
-      return new User(
-        user?.id.toString() ?? '',
-        user?.username.toString() ?? '',
-        user?.email.toString() ?? '',
+      return new User({
+          _id: user?._id.toString() ?? '',
+          _username: user?._username.toString() ?? '',
+          _email: user?._email.toString() ?? ''
+        }
       )
     })
     return users
@@ -30,29 +31,29 @@ export default class UserDao implements UserDaoI {
 
   async findUserById(uid: string): Promise<any> {
     const userMongooseModel = await userModel.findById(uid)
-    return new User(
-      userMongooseModel?._id.toString() ?? '',
-      userMongooseModel?.username.toString() ?? '',
-      userMongooseModel?.email.toString() ?? '',
-    )
-    
+    return new User({
+      _id: userMongooseModel?._id.toString() ?? '',
+      _username: userMongooseModel?._username.toString() ?? '',
+      _email: userMongooseModel?._email.toString() ?? ''
+    })
   }
 
 
   async createUser(user: User): Promise<User> {
     const userMongooseModel = await userModel.create(user)
-    return new User(
-      userMongooseModel?._id.toString() ?? '',
-      userMongooseModel?.username.toString() ?? '',
-      userMongooseModel?.email.toString() ?? '',
-    )
+    return new User({
+      _id: userMongooseModel?._id.toString() ?? '',
+      _username: userMongooseModel?._username.toString() ?? '',
+      _email: userMongooseModel?._email.toString() ?? ''
+    })
   }
 
 
   async updateUser(uid: string, user: User): Promise<any> {
     return userModel.updateOne(
-      {_id: uid},
-      {$set: {user: user}})
+      { _id: uid },
+      { $set: { user: user } }
+    )
   }
 
 

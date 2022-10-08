@@ -32,42 +32,42 @@ export default class TuitController implements TuitControllerI {
   findAllTuits = (req: Request, res: Response) => {
     TuitController.tuitDao
       .findAllTuits()
-      .then((tuits: Tuit[]) => res.json(tuits));
+      .then(tuits => res.json(tuits));
   } 
   
 
   findTuitById = (req: Request, res: Response)  => {
     TuitController.tuitDao
       .findTuitById(req.params.tid)
-      .then((tuit: Tuit) => res.json(tuit));
+      .then(tuit => res.json(tuit));
   }
 
       
   findTuitsByUser = (req: Request, res: Response) => {
     TuitController.tuitDao
       .findTuitsByUser(req.params.uid)
-      .then((tuits: Tuit[]) => res.json(tuits));
+      .then(tuits => res.json(tuits));
   }
     
 
   createTuit = (req: Request, res: Response) => {
     TuitController.tuitDao
       .createTuit(req.body)
-      .then((tuit: Tuit) => res.json(tuit));
+      .then(tuit => res.json(tuit));
   }
     
 
   deleteTuit = (req: Request, res: Response) => {
     TuitController.tuitDao
       .deleteTuit(req.params.tid)
-      .then((status: any) => res.json(status));
+      .then(status => res.json(status));
   }
     
 
   updateTuit = (req: Request, res: Response) => {
     TuitController.tuitDao
       .updateTuit(req.params.tid, req.body)
-      .then((status: any) => res.json(status));
+      .then(status => res.json(status));
   }
     
 }

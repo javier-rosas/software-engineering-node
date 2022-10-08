@@ -1,5 +1,5 @@
 import { Request, Response, Express } from "express";
-import UserDaoI from "../interfaces/UserDao";
+import UserDao from "../daos/UserDao";
 import UserControllerI from "../interfaces/UserController";
 
 
@@ -7,9 +7,10 @@ export default class UserController implements UserControllerI {
 
   private static userController: UserControllerI | null = null;
 
-  private static userDao: UserDaoI;
+  private static userDao: UserDao;
+  
 
-  public static getInstance = (app: Express, userDao: UserDaoI): UserControllerI => {
+  public static getInstance = (app: Express, userDao: UserDao): UserControllerI => {
 
     if (UserController.userController === null) {
       UserController.userController = new UserController();
@@ -29,28 +30,30 @@ export default class UserController implements UserControllerI {
 
   constructor() {}
 
-  findAllUsers = (req: Request, res: Response) =>
-  UserController.userDao.findAllUsers()
+  findAllUsers = (req: Request, res: Response) => {
+    UserController.userDao.findAllUsers()
       .then(users => res.json(users));
-
+  }
+  
 
   findUserById = (req: Request, res: Response) =>
-  UserController.userDao.findUserById(req.params.userid)
+    UserController.userDao.findUserById(req.params.userid)
+        .then(user => res.json(user));
+
+
+  createUser = (req: Request, res: Response) => { 
+    UserController.userDao.createUser(req.body)
       .then(user => res.json(user));
-
-
-  createUser = (req: Request, res: Response) =>
-  UserController.userDao.createUser(req.body)
-      .then(user => res.json(user));
-
+  }
+  
 
   deleteUser = (req: Request, res: Response) =>
-  UserController.userDao.deleteUser(req.params.userid)
+    UserController.userDao.deleteUser(req.params.userid)
       .then(status => res.json(status));
 
   
   updateUser = (req: Request, res: Response) =>
-  UserController.userDao.updateUser(req.params.userid, req.body)
-      .then(status => res.json(status));
+    UserController.userDao.updateUser(req.params.userid, req.body)
+        .then(status => res.json(status));
 
 }
