@@ -1,6 +1,6 @@
 import Tuit from '../models/Tuit'
 import tuitModel from '../mongoose/TuitModel'
-import TuitDaoI from '../interfaces/TuitDao'
+import TuitDaoI from '../interfaces/TuitDaoI'
 
 export default class TuitDao implements TuitDaoI {
 
@@ -55,7 +55,7 @@ export default class TuitDao implements TuitDaoI {
     const tuitMongooseModel = await tuitModel.create(tuit);
     return new Tuit(
       tuitMongooseModel?._id.toString() ?? '',
-      tuitMongooseModel.tuit,
+      tuitMongooseModel?.tuit ?? '',
       new Date(tuitMongooseModel?.postedOn ?? (new Date()))
     )
   }

@@ -1,7 +1,7 @@
-import TuitControllerI from "../interfaces/TuitController";
-import TuitDaoI from "../interfaces/TuitDao";
+import TuitControllerI from "../interfaces/TuitControllerI";
+import TuitDaoI from "../interfaces/TuitDaoI";
 import { Request, Response, Express } from "express";
-import Tuit from "../models/Tuit"
+
 
 export default class TuitController implements TuitControllerI {
 
@@ -35,39 +35,33 @@ export default class TuitController implements TuitControllerI {
       .then(tuits => res.json(tuits));
   } 
   
-
   findTuitById = (req: Request, res: Response)  => {
     TuitController.tuitDao
       .findTuitById(req.params.tid)
       .then(tuit => res.json(tuit));
   }
 
-      
   findTuitsByUser = (req: Request, res: Response) => {
     TuitController.tuitDao
       .findTuitsByUser(req.params.uid)
       .then(tuits => res.json(tuits));
   }
-    
 
   createTuit = (req: Request, res: Response) => {
     TuitController.tuitDao
       .createTuit(req.body)
       .then(tuit => res.json(tuit));
   }
-    
 
   deleteTuit = (req: Request, res: Response) => {
     TuitController.tuitDao
       .deleteTuit(req.params.tid)
       .then(status => res.json(status));
   }
-    
 
   updateTuit = (req: Request, res: Response) => {
     TuitController.tuitDao
       .updateTuit(req.params.tid, req.body)
       .then(status => res.json(status));
   }
-    
 }

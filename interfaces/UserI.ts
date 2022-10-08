@@ -2,7 +2,7 @@ import AccountType from "../models/AccountType"
 import MaritalStatus from "../models/MaritalStatus"
 import Location from "../models/Location"
 
-export default interface User {
+export default interface UserI {
   _id?: string,
   _username: string,
   _password?: string,

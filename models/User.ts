@@ -1,7 +1,7 @@
 import AccountType from "./AccountType";
 import MaritalStatus from "./MaritalStatus";
 import Location from "./Location";
-import UserI from "../interfaces/User"
+import UserI from "../interfaces/UserI"
 
 export default class User {
   
@@ -52,7 +52,6 @@ export default class User {
 		this._location = _location
 	}
 
-	
   public get id(): string | undefined {
     return this._id;
   }
