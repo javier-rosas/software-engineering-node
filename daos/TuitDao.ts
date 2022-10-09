@@ -44,8 +44,8 @@ export default class TuitDao implements TuitDaoI {
     const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
       return new Tuit(
         tuitMongooseModel?._id.toString() ?? '',
-        tuitMongooseModel?.tuit ?? '',
-        new Date(tuitMongooseModel?.postedOn ?? (new Date())));
+        tuitMongooseModel?._tuit ?? '',
+        new Date(tuitMongooseModel?._postedOn ?? (new Date())));
     })
     return tuitModels;
   }
@@ -55,8 +55,8 @@ export default class TuitDao implements TuitDaoI {
     const tuitMongooseModel = await tuitModel.create(tuit);
     return new Tuit(
       tuitMongooseModel?._id.toString() ?? '',
-      tuitMongooseModel?.tuit ?? '',
-      new Date(tuitMongooseModel?.postedOn ?? (new Date()))
+      tuitMongooseModel?._tuit ?? '',
+      new Date(tuitMongooseModel?._postedOn ?? (new Date()))
     )
   }
 

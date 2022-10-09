@@ -17,30 +17,28 @@ export default class UserController implements UserControllerI {
 
     UserController.userDao = userDao;
 
-    app.get('/users', UserController.userController.findAllUsers);
-    app.get('/users/:userid', UserController.userController.findUserById);
-    app.post('/users', UserController.userController.createUser);
-    app.delete('/users/:userid', UserController.userController.deleteUser);
-    app.put('/users/:userid', UserController.userController.updateUser);
+    app.get('/api/users', UserController.userController.findAllUsers);
+    app.get('/api/users/:userid', UserController.userController.findUserById);
+    app.post('/api/users', UserController.userController.createUser);
+    app.delete('/api/users/:userid', UserController.userController.deleteUser);
+    app.put('/api/users/:userid', UserController.userController.updateUser);
 
     return UserController.userController;
   }
 
   constructor() {}
 
-  findAllUsers = (req: Request, res: Response) => {
+  findAllUsers = (req: Request, res: Response) => 
     UserController.userDao.findAllUsers()
       .then(users => res.json(users));
-  }
   
   findUserById = (req: Request, res: Response) =>
     UserController.userDao.findUserById(req.params.userid)
         .then(user => res.json(user));
 
-  createUser = (req: Request, res: Response) => { 
+  createUser = (req: Request, res: Response) => 
     UserController.userDao.createUser(req.body)
       .then(user => res.json(user));
-  }
   
   deleteUser = (req: Request, res: Response) =>
     UserController.userDao.deleteUser(req.params.userid)
