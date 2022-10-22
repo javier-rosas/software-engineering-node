@@ -67,9 +67,7 @@ export default class TuitDao implements TuitDaoI {
 
 
   async updateTuit(tuitId: string, tuit: Tuit): Promise<any> {
-    return tuitModel.updateOne(
-      {_id: tuitId},
-      {$set: {_tuit: tuit.tuit}})
+    return await tuitModel.updateOne({_id: tuitId}, tuit)
   }
 } 
 

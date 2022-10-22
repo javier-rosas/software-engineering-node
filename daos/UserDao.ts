@@ -49,11 +49,8 @@ export default class UserDao implements UserDaoI {
   }
 
 
-  async updateUser(uid: string, user: User): Promise<any> {
-    return userModel.updateOne(
-      { _id: uid },
-      { $set: { user: user } }
-    )
+  async updateUser(uid: string, user: any): Promise<any> {
+    return await userModel.updateOne({ _id: uid }, user)
   }
 
 

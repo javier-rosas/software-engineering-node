@@ -37,7 +37,7 @@ export default class User {
 		_location
 	} : UserI) {
 		this._id = _id
-		this._username=  _username
+		this._username =  _username
 		this._email = _email
 		this._password = _password
 		this._firstName = _firstName
