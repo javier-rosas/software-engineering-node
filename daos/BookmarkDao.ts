@@ -30,8 +30,9 @@ export default class BookmarkDao implements BookmarkDaoI {
   }
   
   async getAllBookmarkedTuitsbyUser(uid: string): Promise<Tuit[]> {
-    const tuitMongooseModels = await BookmarkModel.find({_bookmarkedTuitId: uid}).populate('_bookmarkedTuitId').exec()
+    const tuitMongooseModels = await BookmarkModel.find({_bookmarkedUserId: uid}).populate('_bookmarkedTuitId').exec()
     const tuitModels = tuitMongooseModels.map((tuit) => {
+      tuit = tuit._bookmarkedTuitId
       return new Tuit(
         tuit?._id.toString() ?? '',
         tuit?._tuit ?? '',
