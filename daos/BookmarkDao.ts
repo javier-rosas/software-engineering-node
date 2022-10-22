@@ -1,4 +1,5 @@
 import Bookmark from '../models/Bookmark'
+import Tuit from '../models/Tuit'
 import BookmarkModel from '../mongoose/BookmarkModel'
 import BookmarkDaoI from '../interfaces/BookmarkDaoI'
 
@@ -25,19 +26,20 @@ export default class BookmarkDao implements BookmarkDaoI {
   }
 
   async unBookmark(uid: string, tid: string): Promise<any> {
-    return await BookmarkModel.deleteOne({_bookmarkedUserId: uid, _bookmarkedTuitId: tid});
+    return await BookmarkModel.deleteOne({_bookmarkedUserId: uid, _bookmarkedTuitId: tid})
   }
   
-  async getAllBookmarkedTuitsbyUser(uid: string): Promise<Bookmark[]> {
-    const bookmarkMongooseModels = await BookmarkModel.find({_bookmarkedTuitId: uid});
-    const bookmarkModels = bookmarkMongooseModels.map((bookmark) => {
-      return new Bookmark({
-        _id: bookmark?._id.toString() ?? '',
-        _bookmarkedTuitId: bookmark?._bookmarkedTuitId.toString() ?? '',
-        _bookmarkedUserId: bookmark?._bookmarkedUserId.toString() ?? ''
-      })
+  async getAllBookmarkedTuitsbyUser(uid: string): Promise<Tuit[]> {
+    const tuitMongooseModels = await BookmarkModel.find({_bookmarkedTuitId: uid}).populate('_bookmarkedTuitId').exec()
+    const tuitModels = tuitMongooseModels.map((tuit) => {
+      return new Tuit(
+        tuit?._id.toString() ?? '',
+        tuit?._tuit ?? '',
+        new Date(tuit?._postedOn ?? ''),
+        tuit?._postedBy ?? '',
+      )
     })
-    return bookmarkModels
+    return tuitModels
   }
 
 

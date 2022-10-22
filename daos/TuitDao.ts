@@ -16,7 +16,7 @@ export default class TuitDao implements TuitDaoI {
   private constructor() {}
 
   async findTuitById(id: string): Promise<Tuit> {
-    const tuitMongooseModel = await tuitModel.findById(id).populate('postedBy').exec();
+    const tuitMongooseModel = await tuitModel.findById(id)//.populate('postedBy').exec();
     const tuit = new Tuit(
       tuitMongooseModel?._id.toString() ?? '',
       tuitMongooseModel?._tuit ?? '',
@@ -32,7 +32,8 @@ export default class TuitDao implements TuitDaoI {
       return new Tuit(
         tuitMongooseModel?._id.toString() ?? '',
         tuitMongooseModel?._tuit ?? '',
-        new Date(tuitMongooseModel?._postedOn ?? (new Date()))
+        new Date(tuitMongooseModel?._postedOn ?? ''),
+        tuitMongooseModel?._postedBy ?? '',
       )
     })
     return tuitModels;
@@ -40,14 +41,16 @@ export default class TuitDao implements TuitDaoI {
   
 
   async findTuitsByUser(authorId: string): Promise<Tuit[]> {
-    const tuitMongooseModels = await tuitModel.find({postedBy: authorId});
+    const tuitMongooseModels = await tuitModel.find({_postedBy: authorId})//.populate('tuit').exec()
     const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
       return new Tuit(
         tuitMongooseModel?._id.toString() ?? '',
         tuitMongooseModel?._tuit ?? '',
-        new Date(tuitMongooseModel?._postedOn ?? (new Date())));
+        new Date(tuitMongooseModel?._postedOn ?? ''),
+        tuitMongooseModel?._postedBy ?? ''
+      )
     })
-    return tuitModels;
+    return tuitModels
   }
 
 
@@ -56,7 +59,8 @@ export default class TuitDao implements TuitDaoI {
     return new Tuit(
       tuitMongooseModel?._id.toString() ?? '',
       tuitMongooseModel?._tuit ?? '',
-      new Date(tuitMongooseModel?._postedOn ?? (new Date()))
+      new Date(tuitMongooseModel?._postedOn ?? (new Date())),
+      tuitMongooseModel?._postedBy.toString() ?? '',
     )
   }
 
