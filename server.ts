@@ -7,6 +7,8 @@ import TuitDao from "./daos/TuitDao";
 import mongoose from "mongoose";
 import BookmarkController from './controllers/BookmarkController';
 import BookmarkDao from './daos/BookmarkDao'
+import MessageDao from './daos/MessageDao'
+import MessageController from './controllers/MessageController';
 const cors = require('cors')
 
 const options = {
@@ -35,6 +37,9 @@ TuitController.getInstance(app, tuitDao);
 
 const bookmarkDao = BookmarkDao.getInstance();
 BookmarkController.getInstance(app, bookmarkDao);
+
+const messageDao = MessageDao.getInstance();
+MessageController.getInstance(app, messageDao);
 
 
 const PORT = 4000;

@@ -21,7 +21,7 @@ export default class MessageDao implements MessageDaoI {
       _id: messageMongooseModel?._id.toString() ?? '',
       _sentBy: messageMongooseModel?._sentBy.toString() ?? '',
       _sentTo: messageMongooseModel?._sentTo.toString() ?? '',
-      _timestamp: new Date(messageMongooseModel?._sentBy ?? (new Date())),
+      _timestamp: new Date(messageMongooseModel?._timestamp ?? (new Date())),
       _message: messageMongooseModel?._message.toString() ?? ''
     })
   }
