@@ -32,7 +32,7 @@ export default class TuitDao implements TuitDaoI {
       return new Tuit(
         tuitMongooseModel?._id.toString() ?? '',
         tuitMongooseModel?._tuit ?? '',
-        new Date(tuitMongooseModel?._postedOn ?? ''),
+        new Date(tuitMongooseModel?._postedOn ?? (new Date())),
         tuitMongooseModel?._postedBy ?? '',
       )
     })
@@ -46,7 +46,7 @@ export default class TuitDao implements TuitDaoI {
       return new Tuit(
         tuitMongooseModel?._id.toString() ?? '',
         tuitMongooseModel?._tuit ?? '',
-        new Date(tuitMongooseModel?._postedOn ?? ''),
+        new Date(tuitMongooseModel?._postedOn ?? (new Date())),
         tuitMongooseModel?._postedBy ?? ''
       )
     })

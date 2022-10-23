@@ -5,6 +5,6 @@ const TuitSchema = new mongoose.Schema({
   _tuit: {type: String, required: true},
   _postedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},
   _postedOn: {type: Date, default: Date.now}
-}, {collection: 'tuits'});
+}, {collection: 'tuits'})
 
-export default TuitSchema;
+export default TuitSchema

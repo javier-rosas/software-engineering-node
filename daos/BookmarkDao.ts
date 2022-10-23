@@ -36,7 +36,7 @@ export default class BookmarkDao implements BookmarkDaoI {
       return new Tuit(
         tuit?._id.toString() ?? '',
         tuit?._tuit ?? '',
-        new Date(tuit?._postedOn ?? ''),
+        new Date(tuit?._postedOn ?? (new Date())),
         tuit?._postedBy ?? '',
       )
     })

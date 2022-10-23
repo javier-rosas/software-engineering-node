@@ -35,7 +35,7 @@ export default class BookmarkController implements BookmarkControllerI {
   unBookmark(req: Request, res: Response): void {
     BookmarkController.bookmarkDao
       .unBookmark(req.params.uid, req.params.tid)
-      .then(bookmark => res.json(bookmark));
+      .then(status => res.json(status));
   }
 
   getAllBookmarkedTuitsbyUser(req: Request, res: Response): void {

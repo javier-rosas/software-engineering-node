@@ -2,41 +2,41 @@ import BookmarkI from '../interfaces/BookmarkI'
 
 export default class Bookmark {
 
-  private _id?: string 
-  private _bookmarkedTuitId?: string   
-  private _bookmarkedUserId?: string
+  private _id: string 
+  private _bookmarkedTuitId: string   
+  private _bookmarkedUserId: string
 
   constructor({
 		_id,
 		_bookmarkedTuitId,
     _bookmarkedUserId
 	} : BookmarkI) {
-		this.id = _id
+		this._id = _id
 		this._bookmarkedTuitId=  _bookmarkedTuitId
 		this._bookmarkedUserId = _bookmarkedUserId
 	}
 
   // id
-  public get id(): string | undefined {
+  public get id(): string {
     return this._id
   }
-  public set id(value: string | undefined) {
+  public set id(value: string) {
     this._id = value
   }
 
   // bookmarkedTuitId
-  public get bookmarkedTuitId(): string | undefined {
+  public get bookmarkedTuitId(): string {
     return this._bookmarkedTuitId
   }
-  public set bookmarkedTuitId(value: string | undefined) {
+  public set bookmarkedTuitId(value: string) {
     this._bookmarkedTuitId = value
   }
 
   // bookmarkedUserId
-  public get bookmarkedUserId(): string | undefined {
+  public get bookmarkedUserId(): string {
     return this._bookmarkedUserId
   }
-  public set bookmarkedUserId(value: string | undefined) {
+  public set bookmarkedUserId(value: string) {
     this._bookmarkedUserId = value
   }
 
