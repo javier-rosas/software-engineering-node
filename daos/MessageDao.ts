@@ -33,7 +33,7 @@ export default class MessageDao implements MessageDaoI {
         _id: messageMongooseModel?._id.toString() ?? '',
         _sentBy: messageMongooseModel?._sentBy.toString() ?? '',
         _sentTo: messageMongooseModel?._sentTo.toString() ?? '',
-        _timestamp: new Date(messageMongooseModel?._sentBy ?? (new Date())),
+        _timestamp: new Date(messageMongooseModel?._timestamp ?? (new Date())),
         _message: messageMongooseModel?._message.toString() ?? ''
       })
     })
@@ -47,14 +47,14 @@ export default class MessageDao implements MessageDaoI {
         _id: messageMongooseModel?._id.toString() ?? '',
         _sentBy: messageMongooseModel?._sentBy.toString() ?? '',
         _sentTo: messageMongooseModel?._sentTo.toString() ?? '',
-        _timestamp: new Date(messageMongooseModel?._sentBy ?? (new Date())),
+        _timestamp: new Date(messageMongooseModel?._timestamp ?? (new Date())),
         _message: messageMongooseModel?._message.toString() ?? ''
       })
     })
     return messages
   }
 
-  async deleteMessage(_id: string): Promise<any> {
+  async deleteMessage(uid: string, _id: string): Promise<any> {
     return await MessageModel.deleteOne({_id: _id})
   }
 }
