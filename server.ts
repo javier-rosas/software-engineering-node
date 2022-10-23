@@ -9,6 +9,11 @@ import BookmarkController from './controllers/BookmarkController';
 import BookmarkDao from './daos/BookmarkDao'
 import MessageDao from './daos/MessageDao'
 import MessageController from './controllers/MessageController';
+import LikeController from './controllers/LikeController'
+import LikeDao from './daos/LikeDao';
+import FollowController from './controllers/FollowController';
+import FollowDao from './daos/FollowDao'
+
 const cors = require('cors')
 
 const options = {
@@ -40,6 +45,12 @@ BookmarkController.getInstance(app, bookmarkDao);
 
 const messageDao = MessageDao.getInstance();
 MessageController.getInstance(app, messageDao);
+
+const likeDao = LikeDao.getInstance();
+LikeController.getInstance(app, likeDao);
+
+const followDao = FollowDao.getInstance();
+FollowController.getInstance(app, followDao);
 
 
 const PORT = 4000;
