@@ -1,5 +1,16 @@
+/**
+ * @file Declares Tuit class
+ */
 import User from "./User";
 
+
+/**
+   * @class Tuit encloses tuit data and functionality
+   * @property {string} _id 
+   * @property {string} _tuit actual tuit data (image, text, etc.)
+   * @property {Date} _postedOn date that Tuit was posted on
+   * @property {User} _postedBy
+**/
 export default class Tuit {
    
    constructor(

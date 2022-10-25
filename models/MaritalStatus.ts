@@ -1,3 +1,10 @@
+/**
+ * @file declares MaritalStatus data type
+ */
+
+/**
+ * @enum MaritalStatus
+ */
 enum MaritalStatus {
   Married = 'MARRIED',
   Single = 'SINGLE',

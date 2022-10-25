@@ -1,3 +1,6 @@
+/**
+ * @file Declares API for BookmarkControllerI
+ */
 import {Request, Response} from "express";
 
 export default interface BookmarkControllerI {

@@ -1,5 +1,19 @@
+/**
+ * @file Declares Message class
+ */
+
 import MessageI from '../interfaces/MessageI'
 
+/**
+ * @class Message encloses Message data and functionality 
+ * @property {string} _id 
+ * @property {string} _userID1 userID1 is the smallest ObjectID of the two 
+ * @property {string} _userID2 userID2 is the largest ObjectID of the two 
+ * @property {string} _sentBy 
+ * @property {string} _sentTo 
+ * @property {string} _timestamp 
+ * @property {string} _message actual message data
+ */
 export default class Message {
 
   private _id: string 

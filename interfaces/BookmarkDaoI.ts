@@ -1,3 +1,7 @@
+/**
+ * @file Declares interface for BookmarkDaoI
+ */
+
 import Bookmark from "../models/Bookmark";
 import Tuit from "../models/Tuit"
 

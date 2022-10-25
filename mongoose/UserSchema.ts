@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+/**
+ * @file Implements mongoose schema for the User collection
+ */
 const UserSchema = new mongoose.Schema({
    _username: { type: String, required: true },
    _password: { type: String, required: true },

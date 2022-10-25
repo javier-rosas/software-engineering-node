@@ -1,5 +1,15 @@
+/**
+ * @file Declares Bookmark data type representing relationships between a user 
+ * and bookmark
+ */
 import BookmarkI from '../interfaces/BookmarkI'
 
+/**
+ * @class Bookmark
+ * @property {string} _id unique id 
+ * @property {string} _bookmarkedTuitId Tuit id
+ * @property {string} _bookmarkedUserId id of user bookmarking the Tuit
+ */
 export default class Bookmark {
 
   private _id: string 
