@@ -85,7 +85,7 @@ export default class MessageDao implements MessageDaoI {
   * @param {string} _id message ID 
   * @returns {any} status
   */
-  async deleteMessage(uid: string, _id: string): Promise<any> {
+  async deleteMessage(_id: string): Promise<any> {
     return await MessageModel.deleteOne({_id: _id})
   }
 }
