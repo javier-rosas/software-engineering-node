@@ -19,6 +19,8 @@ const FollowController_1 = __importDefault(require("./controllers/FollowControll
 const BookmarkController_1 = __importDefault(require("./controllers/BookmarkController"));
 const BookmarkDao_1 = __importDefault(require("./daos/BookmarkDao"));
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,7 +30,10 @@ const options = {
     socketTimeoutMS: 45000,
     family: 4
 };
-mongoose_1.default.connect('mongodb://localhost:27017/alice', options);
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+const mongoConnection = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.ag4lgoo.mongodb.net/?retryWrites=true&w=majority`;
+mongoose_1.default.connect(mongoConnection, options);
 const app = (0, express_1.default)();
 app.use(cors());
 app.use(express_1.default.json());

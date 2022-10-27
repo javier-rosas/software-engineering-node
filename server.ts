@@ -33,7 +33,6 @@ const dbUser = process.env.DB_USER
 const dbPassword = process.env.DB_PASSWORD
 const mongoConnection = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.ag4lgoo.mongodb.net/?retryWrites=true&w=majority`
 mongoose.connect(mongoConnection, options);
-
 const app = express();
 app.use(cors());
 app.use(express.json());
