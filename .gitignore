@@ -5,6 +5,7 @@ data
 out
 coverage
 out
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
