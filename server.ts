@@ -16,6 +16,9 @@ import BookmarkDao from "./daos/BookmarkDao";
 
 const cors = require('cors')
 
+const dotenv = require('dotenv')
+dotenv.config()
+
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -26,7 +29,10 @@ const options = {
   family: 4
 }
 
-mongoose.connect('mongodb://localhost:27017/alice', options);
+const dbUser = process.env.DB_USER
+const dbPassword = process.env.DB_PASSWORD
+const mongoConnection = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.ag4lgoo.mongodb.net/?retryWrites=true&w=majority`
+mongoose.connect(mongoConnection, options);
 
 const app = express();
 app.use(cors());
