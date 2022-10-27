@@ -1,10 +1,10 @@
 .idea
-node_modules
-build
-data
-out
-coverage
-out
+node_modules/
+build/
+data/
+out/
+coverage/
+out/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
