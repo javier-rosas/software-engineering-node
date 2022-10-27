@@ -5,6 +5,15 @@ import TuitController from "./controllers/TuitController";
 import UserDao from "./daos/UserDao";
 import TuitDao from "./daos/TuitDao";
 import mongoose from "mongoose";
+import BookmarkController from './controllers/BookmarkController';
+import BookmarkDao from './daos/BookmarkDao'
+import MessageDao from './daos/MessageDao'
+import MessageController from './controllers/MessageController';
+import LikeController from './controllers/LikeController'
+import LikeDao from './daos/LikeDao';
+import FollowController from './controllers/FollowController';
+import FollowDao from './daos/FollowDao'
+
 const cors = require('cors')
 
 const options = {
@@ -30,6 +39,18 @@ UserController.getInstance(app, userDao);
 
 const tuitDao = TuitDao.getInstance();
 TuitController.getInstance(app, tuitDao);
+
+const bookmarkDao = BookmarkDao.getInstance();
+BookmarkController.getInstance(app, bookmarkDao);
+
+const messageDao = MessageDao.getInstance();
+MessageController.getInstance(app, messageDao);
+
+const likeDao = LikeDao.getInstance();
+LikeController.getInstance(app, likeDao);
+
+const followDao = FollowDao.getInstance();
+FollowController.getInstance(app, followDao);
 
 
 const PORT = 4000;

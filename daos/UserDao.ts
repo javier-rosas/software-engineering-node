@@ -35,7 +35,7 @@ export default class UserDao implements UserDaoI {
       return new User({
           _id: user?._id.toString() ?? '',
           _username: user?._username.toString() ?? '',
-          _email: user?._email.toString() ?? ''
+          _email: user?._email?.toString() ?? ''
         }
       )
     })
@@ -52,7 +52,7 @@ export default class UserDao implements UserDaoI {
     return new User({
       _id: userMongooseModel?._id.toString() ?? '',
       _username: userMongooseModel?._username.toString() ?? '',
-      _email: userMongooseModel?._email.toString() ?? ''
+      _email: userMongooseModel?._email?.toString() ?? ''
     })
   }
 
@@ -67,7 +67,7 @@ export default class UserDao implements UserDaoI {
     return new User({
       _id: userMongooseModel?._id.toString() ?? '',
       _username: userMongooseModel?._username.toString() ?? '',
-      _email: userMongooseModel?._email.toString() ?? ''
+      _email: userMongooseModel?._email?.toString() ?? ''
     })
   }
 

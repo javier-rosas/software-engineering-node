@@ -38,7 +38,7 @@ export default class MessageDao implements MessageDaoI {
       _sentBy: messageMongooseModel?._sentBy.toString() ?? '',
       _sentTo: messageMongooseModel?._sentTo.toString() ?? '',
       _timestamp: new Date(messageMongooseModel?._timestamp ?? (new Date())),
-      _message: messageMongooseModel?._message.toString() ?? ''
+      _message: messageMongooseModel?._message?.toString() ?? ''
     })
   }
 
@@ -55,7 +55,7 @@ export default class MessageDao implements MessageDaoI {
         _sentBy: messageMongooseModel?._sentBy.toString() ?? '',
         _sentTo: messageMongooseModel?._sentTo.toString() ?? '',
         _timestamp: new Date(messageMongooseModel?._timestamp ?? (new Date())),
-        _message: messageMongooseModel?._message.toString() ?? ''
+        _message: messageMongooseModel?._message?.toString() ?? ''
       })
     })
     return messages
@@ -74,7 +74,7 @@ export default class MessageDao implements MessageDaoI {
         _sentBy: messageMongooseModel?._sentBy.toString() ?? '',
         _sentTo: messageMongooseModel?._sentTo.toString() ?? '',
         _timestamp: new Date(messageMongooseModel?._timestamp ?? (new Date())),
-        _message: messageMongooseModel?._message.toString() ?? ''
+        _message: messageMongooseModel?._message?.toString() ?? ''
       })
     })
     return messages

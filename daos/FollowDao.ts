@@ -31,7 +31,7 @@ export default class FollowDao implements FollowDaoI {
     * @param {string} uid2 user id of followed
     * @returns {Follow} follow relationship object
   */
-  async followUser(uid1: string, uid2: string): Promise<Follow> {
+  async followUser(uid1: string, uid2: string): Promise<any> {
     return await FollowModel.create({_follower: uid1, _followed: uid2})
   }
 
@@ -50,11 +50,10 @@ export default class FollowDao implements FollowDaoI {
     * @param {string} uid1 user id 
     * @returns {User[]} list of user objects followed uid1  
   */
-  async getFollowing(uid1: string): Promise<User[]> {
+  async getFollowing(uid1: string): Promise<any> {
     const followingMongooseModel = await FollowModel.find({_follower: uid1}).populate('_followed').exec()
     const following = followingMongooseModel.map((user) => {
-      user = user._followed
-      return new User(user)
+      return user._followed
     })
     return following
   }
@@ -64,11 +63,10 @@ export default class FollowDao implements FollowDaoI {
     * @param {string} uid1 user id 
     * @returns {User[]} list of user objects following uid1  
   */
-  async getFollowers(uid1: string): Promise<User[]> {
+  async getFollowers(uid1: string): Promise<any> {
     const followedMongooseModel = await FollowModel.find({_followed: uid1}).populate('_follower').exec()
     const followed = followedMongooseModel.map((user) => {
-      user = user._follower
-      return new User(user)
+      return user._follower
     })
     return followed
   }
