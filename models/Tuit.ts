@@ -1,12 +1,23 @@
+/**
+ * @file Declares Tuit class
+ */
 import User from "./User";
 
+
+/**
+   * @class Tuit encloses tuit data and functionality
+   * @property {string} _id 
+   * @property {string} _tuit actual tuit data (image, text, etc.)
+   * @property {Date} _postedOn date that Tuit was posted on
+   * @property {string} _postedBy
+**/
 export default class Tuit {
    
    constructor(
       private _id: string,
       private _tuit: string,
       private _postedOn: Date,
-      private _postedBy: User | null = null
+      private _postedBy: string | null = null
    ) {}
 
    public get id(): string {
@@ -33,11 +44,11 @@ export default class Tuit {
       this._postedOn = value;
    }
 
-   public get postedBy(): User | null {
+   public get postedBy(): string | null {
       return this._postedBy;
    }
 
-   public set postedBy(value: User | null) {
+   public set postedBy(value: string | null) {
       this._postedBy = value;
    }
 

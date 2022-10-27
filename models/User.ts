@@ -1,8 +1,29 @@
+/**
+ * @file Declares User class
+ */
+
 import AccountType from "./AccountType";
 import MaritalStatus from "./MaritalStatus";
 import Location from "./Location";
 import UserI from "../interfaces/UserI"
 
+
+ /**
+  * @class User encloses user data and functionality
+  * @property {string} _id unique user id 
+  * @property {string} _username 
+	* @property {string} _password 
+	* @property {string} _firstName
+	* @property {string} _lastName 
+	* @property {string} _email 
+	* @property {string} _profilePhoto 
+	* @property {string} _headerImage 
+	* @property {AccountType} _accountType  
+	* @property {MaritalStatus} _maritalStatus  
+	* @property {string} _dateOfBirth  
+	* @property {Date} _joined  
+	* @property {Location} _location 
+	**/
 export default class User {
   
 	private _id?: string;
@@ -37,7 +58,7 @@ export default class User {
 		_location
 	} : UserI) {
 		this._id = _id
-		this._username=  _username
+		this._username =  _username
 		this._email = _email
 		this._password = _password
 		this._firstName = _firstName

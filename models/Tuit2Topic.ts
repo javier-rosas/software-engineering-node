@@ -1,5 +1,14 @@
+/**
+ * @file Declares Tuit2Topic class
+ */
+
 import Tuit from './Tuit'
 
+ /**
+  * @class Tuit2Topic encloses user 2 topic data structure
+  * @property {string} _id 
+  * @property {string} _username 
+	**/
 export default class Tuit2Topic {
   
   constructor(

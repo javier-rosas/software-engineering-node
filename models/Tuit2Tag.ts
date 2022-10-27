@@ -1,5 +1,15 @@
+/**
+ * @file Declares Tuit2Tag class
+ */
+
 import Tuit from './Tuit'
 
+
+ /**
+  * @class Tuit2Tag encloses user 2 tag data structure
+  * @property {string} _id 
+  * @property {string} _username 
+	**/
 export default class Tuit2Tag {
   
   constructor(

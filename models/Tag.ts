@@ -1,3 +1,12 @@
+/**
+ * @file Declares Tag class
+ */
+
+
+/**
+ * @class Tag encloses Tag data and functionality 
+ * @property {string} _tag tag data
+ */
 export default class Tag {
   
   constructor(private _tag: string) {}

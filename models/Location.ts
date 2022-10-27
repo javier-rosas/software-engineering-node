@@ -1,3 +1,12 @@
+/**
+ * @file declares Location class
+ */
+
+/**
+ * @class Location declares Location data type and functionality
+ * @property {number} _latitude 
+ * @property {number} _longitude 
+ */
 export default class Location {
   
   constructor(
