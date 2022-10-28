@@ -6,6 +6,7 @@
 import LikeDaoI from "../interfaces/LikeDaoI";
 import LikeModel from "../mongoose/LikeModel";
 import Like from "../models/Like";
+import User from "../models/User"
 
 /**
 * @class LikeDao implements Data access object for likes resource
@@ -30,11 +31,21 @@ export default class LikeDao implements LikeDaoI {
     * @param {string} tid tuit id
     * @returns {Like[]} array of users
     */
-    findAllUsersThatLikedTuit = async (tid: string): Promise<Like[]> =>
-        LikeModel
+    findAllUsersThatLikedTuit = async (tid: string): Promise<User[]> => {
+      const users = await LikeModel
             .find({tuit: tid})
             .populate("likedBy")
             .exec();
+      const userObjects = users.map((user: any) => {
+        return new User({
+          _id: user?._id.toString() ?? '',
+          _username: user?._username.toString() ?? '',
+          _email: user?._email?.toString() ?? ''
+        })
+      })
+      return userObjects
+    }
+        
     
     /**
     * Retrieves list of tuits that have been liked by a user
