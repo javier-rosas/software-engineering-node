@@ -40,6 +40,7 @@ class TuitDao {
     findAllTuits() {
         return __awaiter(this, void 0, void 0, function* () {
             const tuitMongooseModels = yield TuitModel_1.default.find().populate('_postedBy').exec();
+            console.log(tuitMongooseModels);
             return tuitMongooseModels;
             // const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
             //   return new Tuit(
