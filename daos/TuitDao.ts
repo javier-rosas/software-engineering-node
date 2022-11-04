@@ -31,31 +31,27 @@ export default class TuitDao implements TuitDaoI {
   * @param {string} id Tuit id
   * @returns single Tuit object
   */
-  async findTuitById(id: string): Promise<Tuit> {
-    const tuitMongooseModel = await tuitModel.findById(id)//.populate('postedBy').exec();
-    const tuit = new Tuit(
-      tuitMongooseModel?._id.toString() ?? '',
-      tuitMongooseModel?._tuit ?? '',
-      new Date(tuitMongooseModel?._postedOn ?? (new Date()))
-    )
-    return tuit;
+  async findTuitById(_id: string): Promise<any> {
+    const tuitMongooseModel = await tuitModel.findById({_id}).populate('_postedBy').exec();
+    return tuitMongooseModel;
   }
 
   /**
   * Retrieves all Tuits in the database
   * @returns list of all Tuit objects
   */
-  async findAllTuits(): Promise<Tuit[]> {
-    const tuitMongooseModels = await tuitModel.find();
-    const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
-      return new Tuit(
-        tuitMongooseModel?._id.toString() ?? '',
-        tuitMongooseModel?._tuit ?? '',
-        new Date(tuitMongooseModel?._postedOn ?? (new Date())),
-        tuitMongooseModel?._postedBy?.toString() ?? '',
-      )
-    })
-    return tuitModels;
+  async findAllTuits(): Promise<any[]> {
+    const tuitMongooseModels = await tuitModel.find().populate('_postedBy').exec()
+    return tuitMongooseModels
+    // const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
+    //   return new Tuit(
+    //     tuitMongooseModel?._id.toString() ?? '',
+    //     tuitMongooseModel?._tuit ?? '',
+    //     new Date(tuitMongooseModel?._postedOn ?? (new Date())),
+    //     tuitMongooseModel?._postedBy?.toString() ?? '',
+    //   )
+    // })
+    // return tuitModels;
   }
   
   /**
@@ -63,17 +59,18 @@ export default class TuitDao implements TuitDaoI {
   * @param {string} authorId user id
   * @returns list of all Tuit objects 
   */
-  async findTuitsByUser(authorId: string): Promise<Tuit[]> {
-    const tuitMongooseModels = await tuitModel.find({_postedBy: authorId})//.populate('tuit').exec()
-    const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
-      return new Tuit(
-        tuitMongooseModel?._id.toString() ?? '',
-        tuitMongooseModel?._tuit ?? '',
-        new Date(tuitMongooseModel?._postedOn ?? (new Date())),
-        tuitMongooseModel?._postedBy?.toString() ?? ''
-      )
-    })
-    return tuitModels
+  async findTuitsByUser(authorId: string): Promise<any[]> {
+    const tuitMongooseModels = await tuitModel.find({_postedBy: authorId}).populate('_postedBy').exec()
+    return tuitMongooseModels
+    // const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
+    //   return new Tuit(
+    //     tuitMongooseModel?._id.toString() ?? '',
+    //     tuitMongooseModel?._tuit ?? '',
+    //     new Date(tuitMongooseModel?._postedOn ?? (new Date())),
+    //     tuitMongooseModel?._postedBy?.toString() ?? ''
+    //   )
+    // })
+    // return tuitModels
   }
 
   /**
@@ -98,6 +95,10 @@ export default class TuitDao implements TuitDaoI {
   */
   async deleteTuit(tuitId: string): Promise<any> {
     return await tuitModel.deleteOne({_id: tuitId});
+  }
+
+  async deleteTuitsByUserId(_postedBy: string): Promise<any> {
+    return await tuitModel.deleteOne({_postedBy: _postedBy});
   }
 
   /**

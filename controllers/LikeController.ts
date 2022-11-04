@@ -55,7 +55,7 @@ import LikeDaoI from "../interfaces/LikeDaoI";
       */
      findAllUsersThatLikedTuit = (req: Request, res: Response) =>
          LikeController.likeDao.findAllUsersThatLikedTuit(req.params.tid)
-             .then(likes => res.json(likes));
+             .then(users => res.json(users));
  
      /**
       * Retrieves all tuits liked by a user from the database

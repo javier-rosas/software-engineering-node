@@ -35,7 +35,8 @@ export default class UserDao implements UserDaoI {
       return new User({
           _id: user?._id.toString() ?? '',
           _username: user?._username.toString() ?? '',
-          _email: user?._email?.toString() ?? ''
+          _email: user?._email?.toString() ?? '',
+          _password: user?._password?.toString() ?? ''
         }
       )
     })
@@ -52,7 +53,8 @@ export default class UserDao implements UserDaoI {
     return new User({
       _id: userMongooseModel?._id.toString() ?? '',
       _username: userMongooseModel?._username.toString() ?? '',
-      _email: userMongooseModel?._email?.toString() ?? ''
+      _email: userMongooseModel?._email?.toString() ?? '',
+      _password: userMongooseModel?._password?.toString() ?? ''
     })
   }
 
@@ -67,7 +69,8 @@ export default class UserDao implements UserDaoI {
     return new User({
       _id: userMongooseModel?._id.toString() ?? '',
       _username: userMongooseModel?._username.toString() ?? '',
-      _email: userMongooseModel?._email?.toString() ?? ''
+      _email: userMongooseModel?._email?.toString() ?? '',
+      _password: userMongooseModel?._password?.toString() ?? '',
     })
   }
 
@@ -90,6 +93,10 @@ export default class UserDao implements UserDaoI {
   */
   async deleteUser(uid: string): Promise<any> {
     return await userModel.deleteOne({_id: uid}); 
+  }
+
+  async deleteUserbyUsername(username: string): Promise<any> {
+    return await userModel.deleteOne({_username: username}); 
   }
 
 }

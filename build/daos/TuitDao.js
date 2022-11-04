@@ -27,12 +27,10 @@ class TuitDao {
     * @param {string} id Tuit id
     * @returns single Tuit object
     */
-    findTuitById(id) {
-        var _a, _b, _c;
+    findTuitById(_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const tuitMongooseModel = yield TuitModel_1.default.findById(id); //.populate('postedBy').exec();
-            const tuit = new Tuit_1.default((_a = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._id.toString()) !== null && _a !== void 0 ? _a : '', (_b = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._tuit) !== null && _b !== void 0 ? _b : '', new Date((_c = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._postedOn) !== null && _c !== void 0 ? _c : (new Date())));
-            return tuit;
+            const tuitMongooseModel = yield TuitModel_1.default.findById({ _id }).populate('_postedBy').exec();
+            return tuitMongooseModel;
         });
     }
     /**
@@ -41,12 +39,17 @@ class TuitDao {
     */
     findAllTuits() {
         return __awaiter(this, void 0, void 0, function* () {
-            const tuitMongooseModels = yield TuitModel_1.default.find();
-            const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
-                var _a, _b, _c, _d, _e;
-                return new Tuit_1.default((_a = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._id.toString()) !== null && _a !== void 0 ? _a : '', (_b = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._tuit) !== null && _b !== void 0 ? _b : '', new Date((_c = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._postedOn) !== null && _c !== void 0 ? _c : (new Date())), (_e = (_d = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._postedBy) === null || _d === void 0 ? void 0 : _d.toString()) !== null && _e !== void 0 ? _e : '');
-            });
-            return tuitModels;
+            const tuitMongooseModels = yield TuitModel_1.default.find().populate('_postedBy').exec();
+            return tuitMongooseModels;
+            // const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
+            //   return new Tuit(
+            //     tuitMongooseModel?._id.toString() ?? '',
+            //     tuitMongooseModel?._tuit ?? '',
+            //     new Date(tuitMongooseModel?._postedOn ?? (new Date())),
+            //     tuitMongooseModel?._postedBy?.toString() ?? '',
+            //   )
+            // })
+            // return tuitModels;
         });
     }
     /**
@@ -56,12 +59,17 @@ class TuitDao {
     */
     findTuitsByUser(authorId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const tuitMongooseModels = yield TuitModel_1.default.find({ _postedBy: authorId }); //.populate('tuit').exec()
-            const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
-                var _a, _b, _c, _d, _e;
-                return new Tuit_1.default((_a = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._id.toString()) !== null && _a !== void 0 ? _a : '', (_b = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._tuit) !== null && _b !== void 0 ? _b : '', new Date((_c = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._postedOn) !== null && _c !== void 0 ? _c : (new Date())), (_e = (_d = tuitMongooseModel === null || tuitMongooseModel === void 0 ? void 0 : tuitMongooseModel._postedBy) === null || _d === void 0 ? void 0 : _d.toString()) !== null && _e !== void 0 ? _e : '');
-            });
-            return tuitModels;
+            const tuitMongooseModels = yield TuitModel_1.default.find({ _postedBy: authorId }).populate('_postedBy').exec();
+            return tuitMongooseModels;
+            // const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
+            //   return new Tuit(
+            //     tuitMongooseModel?._id.toString() ?? '',
+            //     tuitMongooseModel?._tuit ?? '',
+            //     new Date(tuitMongooseModel?._postedOn ?? (new Date())),
+            //     tuitMongooseModel?._postedBy?.toString() ?? ''
+            //   )
+            // })
+            // return tuitModels
         });
     }
     /**
@@ -84,6 +92,11 @@ class TuitDao {
     deleteTuit(tuitId) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield TuitModel_1.default.deleteOne({ _id: tuitId });
+        });
+    }
+    deleteTuitsByUserId(_postedBy) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield TuitModel_1.default.deleteOne({ _postedBy: _postedBy });
         });
     }
     /**

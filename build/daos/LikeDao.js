@@ -16,6 +16,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const LikeModel_1 = __importDefault(require("../mongoose/LikeModel"));
+const User_1 = __importDefault(require("../models/User"));
 /**
 * @class LikeDao implements Data access object for likes resource
 */
@@ -27,10 +28,20 @@ class LikeDao {
         * @returns {Like[]} array of users
         */
         this.findAllUsersThatLikedTuit = (tid) => __awaiter(this, void 0, void 0, function* () {
-            return LikeModel_1.default
+            const users = yield LikeModel_1.default
                 .find({ tuit: tid })
                 .populate("likedBy")
                 .exec();
+            console.log(users);
+            const userObjects = users.map((user) => {
+                var _a, _b, _c, _d;
+                return new User_1.default({
+                    _id: (_a = user === null || user === void 0 ? void 0 : user._id.toString()) !== null && _a !== void 0 ? _a : '',
+                    _username: (_b = user === null || user === void 0 ? void 0 : user._username.toString()) !== null && _b !== void 0 ? _b : '',
+                    _email: (_d = (_c = user === null || user === void 0 ? void 0 : user._email) === null || _c === void 0 ? void 0 : _c.toString()) !== null && _d !== void 0 ? _d : ''
+                });
+            });
+            return userObjects;
         });
         /**
         * Retrieves list of tuits that have been liked by a user
@@ -51,7 +62,7 @@ class LikeDao {
         * @returns {any} like relationship
         */
         this.userLikesTuit = (uid, tid) => __awaiter(this, void 0, void 0, function* () {
-            const likeModel = LikeModel_1.default.create({ tuit: tid, likedBy: uid });
+            const likeModel = yield LikeModel_1.default.create({ tuit: tid, likedBy: uid });
             return likeModel;
         });
         /**

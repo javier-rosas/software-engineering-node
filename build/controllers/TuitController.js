@@ -76,6 +76,11 @@ class TuitController {
                 .deleteTuit(req.params.tid)
                 .then(status => res.json(status));
         };
+        this.deleteTuitsByUserId = (req, res) => {
+            TuitController.tuitDao
+                .deleteTuitsByUserId(req.params.uid)
+                .then(status => res.json(status));
+        };
         /**
         * Updates tuit in the database
         * @param {Request} req Represents request from client, including
@@ -107,6 +112,7 @@ TuitController.getInstance = (app, tuitDao) => {
     app.get('/api/users/:uid/tuits', TuitController.tuitController.findTuitsByUser);
     app.post('/api/users/:uid/tuits', TuitController.tuitController.createTuit);
     app.delete('/api/tuits/:tid', TuitController.tuitController.deleteTuit);
+    app.delete('/api/users/:uid/tuits', TuitController.tuitController.deleteTuitsByUserId);
     app.put('/api/tuits/:tid', TuitController.tuitController.updateTuit);
     return TuitController.tuitController;
 };

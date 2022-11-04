@@ -52,6 +52,8 @@ class UserController {
         */
         this.deleteUser = (req, res) => UserController.userDao.deleteUser(req.params.userid)
             .then(status => res.json(status));
+        this.deleteUserbyUsername = (req, res) => UserController.userDao.deleteUserbyUsername(req.params.username)
+            .then(status => res.json(status));
         /**
         * Updates user in the database
         * @param {Request} req Represents request from client, including
@@ -79,6 +81,7 @@ UserController.getInstance = (app, userDao) => {
     app.get('/api/users/:userid', UserController.userController.findUserById);
     app.post('/api/users', UserController.userController.createUser);
     app.delete('/api/users/:userid', UserController.userController.deleteUser);
+    app.delete('/api/users/username/:username/delete', UserController.userController.deleteUserbyUsername);
     app.put('/api/users/:userid', UserController.userController.updateUser);
     return UserController.userController;
 };

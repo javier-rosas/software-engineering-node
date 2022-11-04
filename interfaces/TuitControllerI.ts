@@ -18,4 +18,5 @@ export default interface TuitControllerI {
   findTuitById (req: Request, res: Response): void;
   updateTuit (req: Request, res: Response): void;
   deleteTuit (req: Request, res: Response): void;
+  deleteTuitsByUserId(req: Request, res: Response): void;
 };
