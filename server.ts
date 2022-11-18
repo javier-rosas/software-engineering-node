@@ -15,7 +15,7 @@ import BookmarkController from './controllers/BookmarkController';
 import BookmarkDao from "./daos/BookmarkDao";
 
 const cors = require('cors')
-
+const session = require("express-session")
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -34,6 +34,18 @@ const dbPassword = process.env.DB_PASSWORD
 const mongoConnection = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.ag4lgoo.mongodb.net/?retryWrites=true&w=majority`
 mongoose.connect(mongoConnection, options);
 const app = express();
+let sess = {
+  secret: process.env.SECRET,
+  cookie: {
+      secure: false
+  }
+}
+
+if (process.env.ENV === 'PRODUCTION') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json())

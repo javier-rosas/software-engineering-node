@@ -32,11 +32,7 @@ export default class LikeDao implements LikeDaoI {
     * @returns {Like[]} array of users
     */
     findAllUsersThatLikedTuit = async (tid: string): Promise<User[]> => {
-      const users = await LikeModel
-            .find({ tuit: tid })
-            .populate("likedBy")
-            .exec()
-      console.log(users)
+      const users = await LikeModel.find({ tuit: tid }).populate("likedBy").exec()
       const userObjects = users.map((user: any) => {
         return new User({
           _id: user?._id.toString() ?? '',
