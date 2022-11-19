@@ -18,7 +18,10 @@ const LikeController_1 = __importDefault(require("./controllers/LikeController")
 const FollowController_1 = __importDefault(require("./controllers/FollowController"));
 const BookmarkController_1 = __importDefault(require("./controllers/BookmarkController"));
 const BookmarkDao_1 = __importDefault(require("./daos/BookmarkDao"));
+const authController_1 = __importDefault(require("./controllers/authController"));
+// import cors from 'cors'
 const cors = require('cors');
+const session = require("express-session");
 const dotenv = require('dotenv');
 dotenv.config();
 const options = {
@@ -35,7 +38,23 @@ const dbPassword = process.env.DB_PASSWORD;
 const mongoConnection = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.ag4lgoo.mongodb.net/?retryWrites=true&w=majority`;
 mongoose_1.default.connect(mongoConnection, options);
 const app = (0, express_1.default)();
-app.use(cors());
+let sess = {
+    secret: process.env.SECRET,
+    cookie: {
+        secure: false
+    }
+};
+if (process.env.ENV === 'PRODUCTION') {
+    app.set('trust proxy', 1); // trust first proxy
+    sess.cookie.secure = true; // serve secure cookies
+}
+const corsConfig = {
+    secret: 'secret',
+    origin: true,
+    credentials: true
+};
+app.use(session(sess));
+app.use(cors(corsConfig));
 app.use(express_1.default.json());
 app.use(body_parser_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -51,6 +70,7 @@ const followDao = FollowDao_1.default.getInstance();
 FollowController_1.default.getInstance(app, followDao);
 const bookmarkDao = BookmarkDao_1.default.getInstance();
 BookmarkController_1.default.getInstance(app, bookmarkDao);
+(0, authController_1.default)(app);
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);
 console.log("server listening in port", PORT);

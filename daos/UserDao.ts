@@ -58,6 +58,17 @@ export default class UserDao implements UserDaoI {
     })
   }
 
+  /**
+  * Retrieves user by username
+  * @param {string} username username 
+  * @returns single user object
+  */
+     async findUserByUsername(username: string): Promise<any> {
+      const userMongooseModel = await userModel.find({_username: username})
+      console.log(userMongooseModel)
+      return userMongooseModel
+    }
+
 
   /**
   * Creates a new user 

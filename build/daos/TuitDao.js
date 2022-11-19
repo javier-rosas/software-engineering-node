@@ -40,17 +40,7 @@ class TuitDao {
     findAllTuits() {
         return __awaiter(this, void 0, void 0, function* () {
             const tuitMongooseModels = yield TuitModel_1.default.find().populate('_postedBy').exec();
-            console.log(tuitMongooseModels);
             return tuitMongooseModels;
-            // const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
-            //   return new Tuit(
-            //     tuitMongooseModel?._id.toString() ?? '',
-            //     tuitMongooseModel?._tuit ?? '',
-            //     new Date(tuitMongooseModel?._postedOn ?? (new Date())),
-            //     tuitMongooseModel?._postedBy?.toString() ?? '',
-            //   )
-            // })
-            // return tuitModels;
         });
     }
     /**
@@ -62,15 +52,6 @@ class TuitDao {
         return __awaiter(this, void 0, void 0, function* () {
             const tuitMongooseModels = yield TuitModel_1.default.find({ _postedBy: authorId }).populate('_postedBy').exec();
             return tuitMongooseModels;
-            // const tuitModels = tuitMongooseModels.map((tuitMongooseModel) => {
-            //   return new Tuit(
-            //     tuitMongooseModel?._id.toString() ?? '',
-            //     tuitMongooseModel?._tuit ?? '',
-            //     new Date(tuitMongooseModel?._postedOn ?? (new Date())),
-            //     tuitMongooseModel?._postedBy?.toString() ?? ''
-            //   )
-            // })
-            // return tuitModels
         });
     }
     /**

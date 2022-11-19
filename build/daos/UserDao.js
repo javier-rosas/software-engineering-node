@@ -59,6 +59,17 @@ class UserDao {
         });
     }
     /**
+    * Retrieves user by username
+    * @param {string} username username
+    * @returns single user object
+    */
+    findUserByUsername(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userMongooseModel = yield UserModel_1.default.find({ _username: username });
+            return userMongooseModel;
+        });
+    }
+    /**
     * Creates a new user
     * @param {User} user user object
     * @returns single user object

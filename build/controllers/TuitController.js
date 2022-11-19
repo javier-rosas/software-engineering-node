@@ -51,9 +51,11 @@ class TuitController {
         * body formatted as JSON array containing the tuit objects
         */
         this.findTuitsByUser = (req, res) => {
+            const userId = req.params.uid === "me" && req.session['profile'] ?
+                req.session['profile']._id : req.params.uid;
             TuitController.tuitDao
-                .findTuitsByUser(req.params.uid)
-                .then(tuits => res.json(tuits));
+                .findTuitsByUser(userId)
+                .then((tuits) => res.json(tuits));
         };
         /**
         * Creates new tuit
@@ -61,6 +63,9 @@ class TuitController {
         * @param {Response} res Represents response to client, including the newly created tuit object
         */
         this.createTuit = (req, res) => {
+            const userId = req.body.uid === "me" && req.session['profile'] ?
+                req.session['profile']._id : req.params.uid;
+            req.body._postedBy = userId;
             TuitController.tuitDao
                 .createTuit(req.body)
                 .then(tuit => res.json(tuit));
@@ -76,6 +81,12 @@ class TuitController {
                 .deleteTuit(req.params.tid)
                 .then(status => res.json(status));
         };
+        /**
+         * Delete all tuits by a user
+         * @param req Represents request from client, including
+         * the parameter uid, which represents the user id
+         * @param res Status of the response
+         */
         this.deleteTuitsByUserId = (req, res) => {
             TuitController.tuitDao
                 .deleteTuitsByUserId(req.params.uid)

@@ -13,7 +13,11 @@ import LikeController from './controllers/LikeController';
 import FollowController from './controllers/FollowController';
 import BookmarkController from './controllers/BookmarkController';
 import BookmarkDao from "./daos/BookmarkDao";
-
+import AuthenticationController from './controllers/authController';
+//import cors from 'cors'
+//import session from 'express-session'
+//import dotenv from 'dotenv'
+// import cors from 'cors'
 const cors = require('cors')
 const session = require("express-session")
 const dotenv = require('dotenv')
@@ -46,7 +50,15 @@ if (process.env.ENV === 'PRODUCTION') {
   sess.cookie.secure = true // serve secure cookies
 }
 
-app.use(cors());
+
+const corsConfig = {
+  origin: true,
+  credentials: true
+};
+
+// app.use(cookieParser())
+app.use(session(sess))
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
@@ -69,6 +81,7 @@ FollowController.getInstance(app, followDao);
 const bookmarkDao = BookmarkDao.getInstance();
 BookmarkController.getInstance(app, bookmarkDao);
 
+const auth = AuthenticationController(app)
 
 
 const PORT = 4000;

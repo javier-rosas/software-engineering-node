@@ -28,11 +28,7 @@ class LikeDao {
         * @returns {Like[]} array of users
         */
         this.findAllUsersThatLikedTuit = (tid) => __awaiter(this, void 0, void 0, function* () {
-            const users = yield LikeModel_1.default
-                .find({ tuit: tid })
-                .populate("likedBy")
-                .exec();
-            console.log(users);
+            const users = yield LikeModel_1.default.find({ tuit: tid }).populate("likedBy").exec();
             const userObjects = users.map((user) => {
                 var _a, _b, _c, _d;
                 return new User_1.default({

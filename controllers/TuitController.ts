@@ -86,10 +86,13 @@ export default class TuitController implements TuitControllerI {
   * @param {Response} res Represents response to client, including the
   * body formatted as JSON array containing the tuit objects
   */
-  findTuitsByUser = (req: Request, res: Response) => {
-    TuitController.tuitDao
-      .findTuitsByUser(req.params.uid)
-      .then(tuits => res.json(tuits));
+  findTuitsByUser = (req: any, res: Response) => {
+    const userId = req.params.uid === "me" && req.session['profile'] ?
+                 req.session['profile']._id : req.params.uid;
+  
+     TuitController.tuitDao
+      .findTuitsByUser(userId)
+        .then((tuits) => res.json(tuits));
   }
 
   /**
@@ -97,11 +100,15 @@ export default class TuitController implements TuitControllerI {
   * @param {Request} req Represents request from client, including the body, which contains the tuit object
   * @param {Response} res Represents response to client, including the newly created tuit object
   */
-  createTuit = (req: Request, res: Response) => {
+  createTuit = (req: any, res: Response) => {
+    const userId = req.body.uid === "me" && req.session['profile'] ?
+                   req.session['profile']._id : req.params.uid
+    req.body._postedBy = userId
     TuitController.tuitDao
       .createTuit(req.body)
       .then(tuit => res.json(tuit));
   }
+  
 
   /**
   * Deletes tuit from database
@@ -115,6 +122,12 @@ export default class TuitController implements TuitControllerI {
       .then(status => res.json(status));
   }
 
+  /**
+   * Delete all tuits by a user 
+   * @param req Represents request from client, including 
+   * the parameter uid, which represents the user id 
+   * @param res Status of the response
+   */
   deleteTuitsByUserId = (req: Request, res: Response) => {
     TuitController.tuitDao
       .deleteTuitsByUserId(req.params.uid)
