@@ -10,6 +10,10 @@ import LikeDaoI from "../interfaces/LikeDaoI";
   * @class TuitController Implements RESTful Web service API for likes resource.
   * Defines the following HTTP endpoints:
   * <ul>
+  *     <li>GET api/users/:uid/tuits/:tid/likes to retrieve a likeModel if it exists
+  *     </li>
+  *     <li>GET /api/tuits/:tid/likesCount to retrieve the count of likes in a particular tuit
+  *     </li>
   *     <li>GET /api/users/:uid/likes to retrieve all the tuits liked by a user
   *     </li>
   *     <li>GET /api/tuits/:tid/likes to retrieve all users that liked a tuit
@@ -35,6 +39,8 @@ import LikeDaoI from "../interfaces/LikeDaoI";
      public static getInstance = (app: Express, likeDao: LikeDaoI): LikeController => {
          if(LikeController.likeController === null) {
              LikeController.likeController = new LikeController();
+             app.get("/api/users/:uid/tuits/:tid/likes", LikeController.likeController.findUserLikesTuit);
+             app.get("/api/tuits/:tid/likesCount", LikeController.likeController.countHowManyLikedTuit);
              app.get("/api/users/:uid/likes", LikeController.likeController.findAllTuitsLikedByUser);
              app.get("/api/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
              app.post("/api/users/:uid/likes/:tid", LikeController.likeController.userLikesTuit);
@@ -56,7 +62,30 @@ import LikeDaoI from "../interfaces/LikeDaoI";
      findAllUsersThatLikedTuit = (req: Request, res: Response) =>
          LikeController.likeDao.findAllUsersThatLikedTuit(req.params.tid)
              .then(users => res.json(users));
- 
+
+    /**
+     * Finds out if a user liked a Tuit or not 
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user and tid, representing the tuit 
+     * @param {Response} res Represents response to client, including the
+     * body with a like object 
+     */
+    findUserLikesTuit = (req: Request, res: Response) => 
+        LikeController.likeDao.findUserLikesTuit(req.params.uid, req.params.tid)
+            .then(like => res.json(like))
+
+    /**
+     * Counts the amount of likes in a Tuit 
+     * @param {Request} req Represents request from client, including the path
+     * parameter tid representing the tuit
+     * @param {Response} res Represents response to client, including the
+     * body with the count 
+     */     
+    countHowManyLikedTuit = (req: Request, res: Response) => 
+        LikeController.likeDao.countHowManyLikedTuit(req.params.tid)
+            .then(count => res.json(count))
+        
+        
      /**
       * Retrieves all tuits liked by a user from the database
       * @param {Request} req Represents request from client, including the path
