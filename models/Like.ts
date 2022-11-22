@@ -15,4 +15,5 @@
  export default interface Like {
      tuit: Tuit,
      likedBy: User
+     dislikedBy: User
  };

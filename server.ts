@@ -14,10 +14,9 @@ import FollowController from './controllers/FollowController';
 import BookmarkController from './controllers/BookmarkController';
 import BookmarkDao from "./daos/BookmarkDao";
 import AuthenticationController from './controllers/authController';
-//import cors from 'cors'
-//import session from 'express-session'
-//import dotenv from 'dotenv'
-// import cors from 'cors'
+import DislikesController from './controllers/DislikeController';
+import DislikeDao from './daos/DislikeDao'
+
 const cors = require('cors')
 const session = require("express-session")
 const dotenv = require('dotenv')
@@ -56,7 +55,6 @@ const corsConfig = {
   credentials: true
 };
 
-// app.use(cookieParser())
 app.use(session(sess))
 app.use(cors(corsConfig));
 app.use(express.json());
@@ -80,6 +78,9 @@ FollowController.getInstance(app, followDao);
 
 const bookmarkDao = BookmarkDao.getInstance();
 BookmarkController.getInstance(app, bookmarkDao);
+
+const dislikeDao = DislikeDao.getInstance()
+DislikesController.getInstance(app, dislikeDao)
 
 const auth = AuthenticationController(app)
 

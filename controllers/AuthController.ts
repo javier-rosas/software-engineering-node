@@ -2,8 +2,6 @@ import UserDao from "../daos/UserDao"
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 import {  Express } from "express";
-import { resolve } from "path/posix";
-import { rejects } from "assert";
 
 /**
  * Authenitcation controller implements restful api service for the auth service 
@@ -33,7 +31,6 @@ const AuthenticationController = (app: Express) => {
       const insertedUser = await userDao.createUser(newUser)
       insertedUser.password = ''
       req.session['profile'] = insertedUser 
-      console.log("signup", req.session['profile'])
       res.json(insertedUser)
     }
   }
