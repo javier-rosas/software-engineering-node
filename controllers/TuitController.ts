@@ -89,10 +89,14 @@ export default class TuitController implements TuitControllerI {
   findTuitsByUser = (req: any, res: Response) => {
     const userId = req.params.uid === "me" && req.session['profile'] ?
                  req.session['profile']._id : req.params.uid;
-  
      TuitController.tuitDao
       .findTuitsByUser(userId)
-        .then((tuits) => res.json(tuits));
+        .then((tuits) => {
+          res.json(tuits)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
   }
 
   /**
@@ -103,10 +107,13 @@ export default class TuitController implements TuitControllerI {
   createTuit = (req: any, res: Response) => {
     const userId = req.body.uid === "me" && req.session['profile'] ?
                    req.session['profile']._id : req.params.uid
+    
     req.body._postedBy = userId
     TuitController.tuitDao
       .createTuit(req.body)
-      .then(tuit => res.json(tuit));
+      .then(tuit => {
+        res.json(tuit)
+      });
   }
   
 
