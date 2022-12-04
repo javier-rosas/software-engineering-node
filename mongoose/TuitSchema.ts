@@ -8,7 +8,8 @@ const TuitSchema = new mongoose.Schema({
   _stats: {
     _replies: {type: Number, default: 0},
     _retuits: {type: Number, default: 0},
-    _likes: {type: Number, default: 0}
+    _likes: {type: Number, default: 0},
+    _dislikes: {type: Number, default: 0}
   }
 }, {collection: 'tuits'})
 

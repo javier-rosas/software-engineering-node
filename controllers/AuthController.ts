@@ -2,8 +2,6 @@ import UserDao from "../daos/UserDao"
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 import {  Express } from "express";
-import { resolve } from "path/posix";
-import { rejects } from "assert";
 
 /**
  * Authenitcation controller implements restful api service for the auth service 
@@ -26,7 +24,7 @@ const AuthenticationController = (app: Express) => {
     const hash = await bcrypt.hash(password, saltRounds)
     newUser._password = hash 
     const existingUser = await userDao.findUserByUsername(req.body._username)
-    if (existingUser === undefined || !(Array.isArray(existingUser) && existingUser.length===0)) {
+    if (!(Array.isArray(existingUser) && existingUser.length===0)) {
       res.sendStatus(403)
       return
     } else {
@@ -73,18 +71,18 @@ const AuthenticationController = (app: Express) => {
     const user = req.body;
     const username = user._username;
     const password = user._password;
-    const existingUser = await userDao
+    let existingUser = await userDao
       .findUserByUsername(username);
   
+    existingUser = existingUser[0]
     if (!existingUser) {
       res.sendStatus(403);
       return;
     }
   
-    const match = await bcrypt
-      .compare(password, existingUser._password);
-  
-    if (match) {
+    const match = await bcrypt.compare(password, existingUser._password);
+    const hashesMatch = password === existingUser._password
+    if (match || hashesMatch) {
       existingUser._password = '*****';
       req.session['profile'] = existingUser;
       res.json(existingUser);
