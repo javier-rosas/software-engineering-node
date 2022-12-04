@@ -19,7 +19,8 @@ const FollowController_1 = __importDefault(require("./controllers/FollowControll
 const BookmarkController_1 = __importDefault(require("./controllers/BookmarkController"));
 const BookmarkDao_1 = __importDefault(require("./daos/BookmarkDao"));
 const authController_1 = __importDefault(require("./controllers/authController"));
-// import cors from 'cors'
+const DislikeController_1 = __importDefault(require("./controllers/DislikeController"));
+const DislikeDao_1 = __importDefault(require("./daos/DislikeDao"));
 const cors = require('cors');
 const session = require("express-session");
 const dotenv = require('dotenv');
@@ -49,7 +50,6 @@ if (process.env.ENV === 'PRODUCTION') {
     sess.cookie.secure = true; // serve secure cookies
 }
 const corsConfig = {
-    secret: 'secret',
     origin: true,
     credentials: true
 };
@@ -70,7 +70,9 @@ const followDao = FollowDao_1.default.getInstance();
 FollowController_1.default.getInstance(app, followDao);
 const bookmarkDao = BookmarkDao_1.default.getInstance();
 BookmarkController_1.default.getInstance(app, bookmarkDao);
-(0, authController_1.default)(app);
+const dislikeDao = DislikeDao_1.default.getInstance();
+DislikeController_1.default.getInstance(app, dislikeDao);
+const auth = (0, authController_1.default)(app);
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);
 console.log("server listening in port", PORT);

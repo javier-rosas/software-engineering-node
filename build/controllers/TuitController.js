@@ -55,7 +55,12 @@ class TuitController {
                 req.session['profile']._id : req.params.uid;
             TuitController.tuitDao
                 .findTuitsByUser(userId)
-                .then((tuits) => res.json(tuits));
+                .then((tuits) => {
+                res.json(tuits);
+            })
+                .catch((e) => {
+                console.log(e);
+            });
         };
         /**
         * Creates new tuit
@@ -68,7 +73,9 @@ class TuitController {
             req.body._postedBy = userId;
             TuitController.tuitDao
                 .createTuit(req.body)
-                .then(tuit => res.json(tuit));
+                .then(tuit => {
+                res.json(tuit);
+            });
         };
         /**
         * Deletes tuit from database
@@ -121,7 +128,7 @@ TuitController.getInstance = (app, tuitDao) => {
     app.get('/api/tuits', TuitController.tuitController.findAllTuits);
     app.get('/api/tuits/:tid', TuitController.tuitController.findTuitById);
     app.get('/api/users/:uid/tuits', TuitController.tuitController.findTuitsByUser);
-    app.post('/api/users/:uid/tuits', TuitController.tuitController.createTuit);
+    app.post('/api/users', TuitController.tuitController.createTuit);
     app.delete('/api/tuits/:tid', TuitController.tuitController.deleteTuit);
     app.delete('/api/users/:uid/tuits', TuitController.tuitController.deleteTuitsByUserId);
     app.put('/api/tuits/:tid', TuitController.tuitController.updateTuit);

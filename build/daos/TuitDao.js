@@ -21,7 +21,17 @@ const TuitModel_1 = __importDefault(require("../mongoose/TuitModel"));
 * @class TuitDao Implements Data access object for tuit resource
 */
 class TuitDao {
-    constructor() { }
+    constructor() {
+        /**
+         * Update the amount of likes in a function
+         * @param tid tuit id
+         * @param newStats object with the new stats
+         * @returns status of update
+         */
+        this.updateLikes = (tid, newStats) => __awaiter(this, void 0, void 0, function* () {
+            return TuitModel_1.default.updateOne({ _id: tid }, { $set: { _stats: newStats } });
+        });
+    }
     /**
     * Retrieves a single Tuit by id
     * @param {string} id Tuit id
@@ -73,7 +83,9 @@ class TuitDao {
     */
     deleteTuit(tuitId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield TuitModel_1.default.deleteOne({ _id: tuitId });
+            const res = yield TuitModel_1.default.deleteOne({ _id: tuitId });
+            console.log("res ----- \n", res);
+            return res;
         });
     }
     deleteTuitsByUserId(_postedBy) {

@@ -109,7 +109,8 @@ class UserDao {
     }
     deleteUserbyUsername(username) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield UserModel_1.default.deleteOne({ _username: username });
+            const userMongooseModel = yield UserModel_1.default.deleteOne({ _username: username });
+            return userMongooseModel;
         });
     }
 }

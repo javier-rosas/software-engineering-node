@@ -84,7 +84,6 @@ export default class UserController implements UserControllerI {
     UserController.userDao.createUser(req.body)
       .then(user => res.json(user));
   
-  
   /**
   * Deletes user from database
   * @param {Request} req Represents request from client, including 

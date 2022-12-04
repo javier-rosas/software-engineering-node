@@ -40,6 +40,19 @@ class LikeDao {
             return userObjects;
         });
         /**
+         * Find if a user liked a Tuit or not
+         * @param uid user id
+         * @param tid tuit id
+         * @returns a Like object
+         */
+        this.findUserLikesTuit = (uid, tid) => __awaiter(this, void 0, void 0, function* () { return LikeModel_1.default.findOne({ tuit: tid, likedBy: uid }); });
+        /**
+         * Count how many users liked a Tuit
+         * @param tid tuit id
+         * @returns number of likes
+         */
+        this.countHowManyLikedTuit = (tid) => __awaiter(this, void 0, void 0, function* () { return LikeModel_1.default.count({ tuit: tid }); });
+        /**
         * Retrieves list of tuits that have been liked by a user
         * @param {string} uid user id
         * @returns {Like[]} array of tuits

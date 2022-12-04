@@ -29,13 +29,12 @@ const AuthenticationController = (app) => {
      * @returns
      */
     const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("signup");
         const newUser = req.body;
-        const password = newUser.password;
+        const password = newUser._password;
         const hash = yield bcrypt.hash(password, saltRounds);
-        newUser.password = hash;
-        const existingUser = yield userDao.findUserByUsername(req.body.username);
-        if (existingUser) {
+        newUser._password = hash;
+        const existingUser = yield userDao.findUserByUsername(req.body._username);
+        if (!(Array.isArray(existingUser) && existingUser.length === 0)) {
             res.sendStatus(403);
             return;
         }
@@ -54,7 +53,7 @@ const AuthenticationController = (app) => {
     const profile = (req, res) => {
         const profile = req.session['profile'];
         if (profile) {
-            profile.password = "";
+            profile._password = "";
             res.json(profile);
         }
         else {
@@ -79,18 +78,19 @@ const AuthenticationController = (app) => {
      */
     const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = req.body;
-        const username = user.username;
-        const password = user.password;
-        const existingUser = yield userDao
+        const username = user._username;
+        const password = user._password;
+        let existingUser = yield userDao
             .findUserByUsername(username);
+        existingUser = existingUser[0];
         if (!existingUser) {
             res.sendStatus(403);
             return;
         }
-        const match = yield bcrypt
-            .compare(password, existingUser.password);
-        if (match) {
-            existingUser.password = '*****';
+        const match = yield bcrypt.compare(password, existingUser._password);
+        const hashesMatch = password === existingUser._password;
+        if (match || hashesMatch) {
+            existingUser._password = '*****';
             req.session['profile'] = existingUser;
             res.json(existingUser);
         }
@@ -102,6 +102,6 @@ const AuthenticationController = (app) => {
     app.post("/api/auth/login", login);
     app.post("/api/auth/profile", profile);
     app.post("/api/auth/logout", logout);
-    app.post("api/auth/singup", signup);
+    app.post("/api/auth/signup", signup);
 };
 exports.default = AuthenticationController;

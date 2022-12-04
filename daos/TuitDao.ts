@@ -76,8 +76,10 @@ export default class TuitDao implements TuitDaoI {
   * @returns {any} status of the request
   */
   async deleteTuit(tuitId: string): Promise<any> {
-    return await tuitModel.deleteOne({_id: tuitId});
+    const res = await tuitModel.deleteOne({_id: tuitId});
+    return res
   }
+
 
   async deleteTuitsByUserId(_postedBy: string): Promise<any> {
     return await tuitModel.deleteOne({_postedBy: _postedBy});
@@ -102,8 +104,7 @@ export default class TuitDao implements TuitDaoI {
   updateLikes = async (tid: string, newStats: number) =>
     tuitModel.updateOne(
         {_id: tid},
-        {$set: {_stats: newStats}});
-
+        {$set: {_stats: newStats}})
 } 
 
 
