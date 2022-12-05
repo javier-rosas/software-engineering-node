@@ -23,22 +23,7 @@ export default class DislikeDao {
 
     private constructor() {}
 
-    /**
-    * Retrieves list of users that have liked a Tuit
-    * @param {string} tid tuit id
-    * @returns {Like[]} array of users
-    */
-    // findAllUsersThatLikedTuit = async (tid: string): Promise<User[]> => {
-    //   const users = await LikeModel.find({ tuit: tid }).populate("likedBy").exec()
-    //   const userObjects = users.map((user: any) => {
-    //     return new User({
-    //       _id: user?._id.toString() ?? '',
-    //       _username: user?._username.toString() ?? '',
-    //       _email: user?._email?.toString() ?? ''
-    //     })
-    //   })
-    //   return userObjects
-    // }
+
 
     /**
      * Find if a user disliked a Tuit or not 
@@ -57,18 +42,6 @@ export default class DislikeDao {
      countHowManyDislikedTuit = async (tid: string) =>
         DislikeModel.count({tuit: tid});
     
-    /**
-    * Retrieves list of tuits that have been liked by a user
-    * @param {string} uid user id
-    * @returns {Like[]} array of tuits
-    */
-    // findAllTuitsLikedByUser = async (uid: string): Promise<Like[]> => {
-    //   const likes =  LikeModel
-    //         .find({likedBy: uid})
-    //         .populate("tuit")
-    //         .exec()
-    //   return likes
-    // }
         
     /**
     * User dislikes a Tuit
@@ -89,6 +62,19 @@ export default class DislikeDao {
     */
     userUnDislikesTuit = async (uid: string, tid: string): Promise<any> => {
       return DislikeModel.deleteOne({tuit: tid, dislikedBy: uid});
+    }
+
+    /**
+     * Retrieves list of tuits that have been disliked by a user
+     * @param {string} uid user id
+     * @returns {any} array of tuits
+     */
+      findAllTuitsDislikedByUser = async (uid: string): Promise<any> => {
+      const likes =  DislikeModel
+            .find({dislikedBy: uid})
+            .populate("tuit")
+            .exec()
+      return likes
     }
       
 }

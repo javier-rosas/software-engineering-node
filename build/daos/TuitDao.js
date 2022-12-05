@@ -84,7 +84,6 @@ class TuitDao {
     deleteTuit(tuitId) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield TuitModel_1.default.deleteOne({ _id: tuitId });
-            console.log("res ----- \n", res);
             return res;
         });
     }
