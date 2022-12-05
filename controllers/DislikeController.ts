@@ -34,6 +34,7 @@
     public static getInstance = (app: Express, dislikeDao: any): DislikesController => {
         if(DislikesController.dislikeController === null) {
           DislikesController.dislikeController = new DislikesController();
+          app.get("/api/users/:uid/dislikes", DislikesController.dislikeController.findAllTuitsDisikedByUser);
           app.get("/api/users/:uid/dislikes/:tid", DislikesController.dislikeController.findUserDislikesTuit);
           app.put("/api/users/:uid/dislikes/:tid", DislikesController.dislikeController.userTogglesTuitDisLikes)
           DislikesController.dislikeDao = dislikeDao
@@ -105,5 +106,18 @@
           res.sendStatus(404);
       }
   }
-
+  /**
+  * Retrieves all tuits disliked by a user from the database
+  * @param {Request} req Represents request from client, including the path
+  * parameter uid representing the user 
+  * @param {Response} res Represents response to client, including the
+  * body formatted as JSON arrays containing the tuit objects that were disliked
+  */
+      findAllTuitsDisikedByUser = (req: any, res: any) => {
+      const userId = req.params.uid === "me" && req.session['profile'] ?
+                req.session['profile']._id : req.params.uid;
+      
+      DislikesController.dislikeDao.findAllTuitsDislikedByUser(userId)
+          .then(likes => res.json(likes));
+    }
 }

@@ -69,7 +69,7 @@ class TuitController {
         */
         this.createTuit = (req, res) => {
             const userId = req.body.uid === "me" && req.session['profile'] ?
-                req.session['profile']._id : req.params.uid;
+                req.session['profile']._id : req.body._postedBy;
             req.body._postedBy = userId;
             TuitController.tuitDao
                 .createTuit(req.body)
@@ -128,7 +128,7 @@ TuitController.getInstance = (app, tuitDao) => {
     app.get('/api/tuits', TuitController.tuitController.findAllTuits);
     app.get('/api/tuits/:tid', TuitController.tuitController.findTuitById);
     app.get('/api/users/:uid/tuits', TuitController.tuitController.findTuitsByUser);
-    app.post('/api/users', TuitController.tuitController.createTuit);
+    app.post('/api/tuits', TuitController.tuitController.createTuit);
     app.delete('/api/tuits/:tid', TuitController.tuitController.deleteTuit);
     app.delete('/api/users/:uid/tuits', TuitController.tuitController.deleteTuitsByUserId);
     app.put('/api/tuits/:tid', TuitController.tuitController.updateTuit);

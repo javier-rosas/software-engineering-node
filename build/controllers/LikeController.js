@@ -112,12 +112,16 @@ class LikeController {
         /**
          * Retrieves all tuits liked by a user from the database
          * @param {Request} req Represents request from client, including the path
-         * parameter uid representing the user liked the tuits
+         * parameter uid representing the user
          * @param {Response} res Represents response to client, including the
          * body formatted as JSON arrays containing the tuit objects that were liked
          */
-        this.findAllTuitsLikedByUser = (req, res) => LikeController.likeDao.findAllTuitsLikedByUser(req.params.uid)
-            .then(likes => res.json(likes));
+        this.findAllTuitsLikedByUser = (req, res) => {
+            const userId = req.params.uid === "me" && req.session['profile'] ?
+                req.session['profile']._id : req.params.uid;
+            LikeController.likeDao.findAllTuitsLikedByUser(userId)
+                .then(likes => res.json(likes));
+        };
         /**
          * @param {Request} req Represents request from client, including the
          * path parameters uid and tid representing the user that is liking the tuit
