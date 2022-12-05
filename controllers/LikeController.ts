@@ -85,7 +85,6 @@ import DislikeDao from "../daos/DislikeDao";
         }
         
     }
-        
     
     /***
      * User toggles the like button 
